@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'sql_server.pyodbc',
         'NAME': os.environ.get('POSTGRES_DB', 'dbname'),
         'USER': os.environ.get('POSTGRES_USER', 'dbuser'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'dbpass'),
