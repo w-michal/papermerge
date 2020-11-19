@@ -25,7 +25,7 @@ class DocumentImporter:
         if username is None:
             # get superuser
             self.user = User.objects.filter(
-                is_superuser=True
+                is_superuser=1
             ).first()
         else:
             self.user = User.objects.filter(
