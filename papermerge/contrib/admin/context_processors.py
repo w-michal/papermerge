@@ -33,7 +33,7 @@ def extras(request):
         count = -1
 
     pinned_tags = Tag.objects.filter(
-        pinned=True,
+        pinned=1,
         user=request.user
     )
     alltags = Tag.objects.filter(
