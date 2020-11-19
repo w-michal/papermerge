@@ -19,6 +19,10 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'dbpass'),
         'HOST': os.environ.get('POSTGRES_HOST', 'db'),
         'PORT': os.environ.get('POSTGRES_PORT', 5432),
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'unicode_results': True,
+        },
     },
 }
 

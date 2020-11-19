@@ -5,10 +5,24 @@ LABEL maintainer="Eugen Ciur <eugen@papermerge.com>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
- && apt-get install -y \
+ && apt-get install --yes --no-install-recommends \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        unixodbc-dev
+
+RUN curl http://packages.microsoft.com/keys/microsoft.asc | apt-key add - 
+RUN curl http://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update \
+ && ACCEPT_EULA=Y apt-get install --yes --no-install-recommends msodbcsql17
+
+RUN apt-get install -y \
                     build-essential \
                     vim \
+                    unixodbc-dev \
                     python3 \
+                    msodbcsql17 \
                     python3-pip \
                     python3-venv \
                     virtualenv \
@@ -40,7 +54,7 @@ RUN echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 
-RUN git clone w-michal/papermerge.git -q --depth 1 /opt/app
+RUN git clone https://github.com/w-michal/papermerge.git --branch mssql-db -q --depth 1 /opt/app
 
 RUN mkdir -p /opt/media
 
@@ -67,6 +81,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 
 RUN pip3 install -r requirements/base.txt --no-cache-dir
-RUN pip3 install -r requirements/extra/pg.txt --no-cache-dir
+# RUN pip3 install -r requirements/extra/pg.txt --no-cache-dir
 
 CMD ["/opt/app/startup.sh"]

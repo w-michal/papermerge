@@ -1,12 +1,13 @@
 mglib == 1.2.8
 mgclipboard >= 0.3.0
-django
+django == 3.0.10
 celery
 django-taggit
 imapclient
 djangorestframework  # DRF stores tokens clear text in DB
 django-rest-knox     # Knox stores hashed tokens in DB
 pyyaml
+pyodbc
 lxml
 django-celery-results
 django-allauth
